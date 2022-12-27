@@ -1,0 +1,11 @@
+# docker-compose.yml
+version: '3.1'
+services :
+    myservername:
+        image: postgres:10-alpine
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: mydb
