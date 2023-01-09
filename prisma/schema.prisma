@@ -31,6 +31,7 @@ model User {
   Machine_Component Machine_Component[]
   Comment           Comment[]
   Document          Document[]
+  Article           Article[]
 }
 
 model ArticleType {
@@ -50,9 +51,10 @@ model Article {
   machineId     Int?
   component     Component?  @relation(fields: [componentId], references: [id])
   componentId   Int?
-
-  Comment  Comment[]
-  Document Document[]
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  Comment       Comment[]
+  Document      Document[]
 }
 
 model Document {
