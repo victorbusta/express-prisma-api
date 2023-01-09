@@ -1,0 +1,52 @@
+[
+  {
+    "table": "role",
+    "entries": [
+      {
+        "parameters": [
+          {
+            "name" : "role",
+            "value" : "ROLE_ADMIN"
+          }
+        ]
+      },
+      {
+        "parameters": [
+          {
+            "name" : "role",
+            "value" : "ROLE_USER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "table": "articleType",
+    "entries": [
+      {
+        "parameters": [
+          {
+            "name" : "type",
+            "value" : "Fix"
+          }
+        ]
+      },
+      {
+        "parameters": [
+          {
+            "name" : "type",
+            "value" : "DIY"
+          }
+        ]
+      },
+      {
+        "parameters": [
+          {
+            "name" : "type",
+            "value" : "Question"
+          }
+        ]
+      }
+    ]
+  }
+]

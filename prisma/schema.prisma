@@ -37,7 +37,6 @@ model User {
 model ArticleType {
   id      Int       @id @default(autoincrement())
   type    String
-  subType String
   Article Article[]
 }
 

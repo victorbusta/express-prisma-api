@@ -24,7 +24,6 @@ CREATE TABLE "User" (
 CREATE TABLE "ArticleType" (
     "id" SERIAL NOT NULL,
     "type" TEXT NOT NULL,
-    "subType" TEXT NOT NULL,
 
     CONSTRAINT "ArticleType_pkey" PRIMARY KEY ("id")
 );
@@ -37,6 +36,7 @@ CREATE TABLE "Article" (
     "articleTypeId" INTEGER NOT NULL,
     "machineId" INTEGER,
     "componentId" INTEGER,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Article_pkey" PRIMARY KEY ("id")
 );
@@ -119,6 +119,9 @@ ALTER TABLE "Article" ADD CONSTRAINT "Article_machineId_fkey" FOREIGN KEY ("mach
 
 -- AddForeignKey
 ALTER TABLE "Article" ADD CONSTRAINT "Article_componentId_fkey" FOREIGN KEY ("componentId") REFERENCES "Component"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Article" ADD CONSTRAINT "Article_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Document" ADD CONSTRAINT "Document_machineId_fkey" FOREIGN KEY ("machineId") REFERENCES "Machine"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

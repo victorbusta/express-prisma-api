@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate_api": "npx ts-node index.ts",
-    "start_api": "npx ts-node ./src/index.ts"
+    "start_api": "npx ts-node ./src/index.ts",
+    "load_fixtures": "npx ts-node ./fixture/loader.fixture"
   },
   "repository": {
     "type": "git",
