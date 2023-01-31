@@ -13,7 +13,7 @@ datasource db {
 model Role {
   id   Int    @id @default(autoincrement())
   role String @db.VarChar(255)
-  User User[]
+  users User[]
 }
 
 model User {
@@ -26,18 +26,18 @@ model User {
   deletedDate       DateTime?
   role              Role                @relation(fields: [roleId], references: [id])
   roleId            Int
-  Machine           Machine[]
-  Component         Component[]
-  Machine_Component Machine_Component[]
-  Comment           Comment[]
-  Document          Document[]
-  Article           Article[]
+  machines           Machine[]
+  components         Component[]
+  machines_components Machine_Component[]
+  comments           Comment[]
+  documents          Document[]
+  articles           Article[]
 }
 
 model ArticleType {
   id      Int       @id @default(autoincrement())
   type    String
-  Article Article[]
+  articles Article[]
 }
 
 model Article {
@@ -52,8 +52,8 @@ model Article {
   componentId   Int?
   user          User        @relation(fields: [userId], references: [id])
   userId        Int
-  Comment       Comment[]
-  Document      Document[]
+  comments       Comment[]
+  documents      Document[]
 }
 
 model Document {
@@ -92,9 +92,9 @@ model Machine {
   discontinuationDate DateTime?
   user                User                @relation(fields: [userId], references: [id])
   userId              Int
-  Machine_Component   Machine_Component[]
-  Article             Article[]
-  Document            Document[]
+  machines_components   Machine_Component[]
+  articles             Article[]
+  documents            Document[]
 }
 
 model Component {
@@ -107,9 +107,9 @@ model Component {
   discontinuationDate DateTime?
   user                User                @relation(fields: [userId], references: [id])
   userId              Int
-  Machine_Component   Machine_Component[]
-  Article             Article[]
-  Document            Document[]
+  machines_components   Machine_Component[]
+  articles             Article[]
+  documents            Document[]
 }
 
 model Machine_Component {
