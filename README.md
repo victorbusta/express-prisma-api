@@ -22,8 +22,12 @@ check `./.env` file for data base infos (connexion to postgres db) :
 
 check datasource db in `./prisma/schema.prisma` and create database schema
 
+then you can format the following command:
+
+> npx prisma format
+
 once that is done, make the migration :
 
->npx prisma migrate dev --name init
+> npx prisma migrate dev --name init
 
 

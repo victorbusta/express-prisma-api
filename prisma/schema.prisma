@@ -11,32 +11,32 @@ datasource db {
 }
 
 model Role {
-  id   Int    @id @default(autoincrement())
-  role String @db.VarChar(255)
+  id    Int    @id @default(autoincrement())
+  role  String @db.VarChar(255)
   users User[]
 }
 
 model User {
-  id                Int                 @id @default(autoincrement())
-  email             String              @unique
-  name              String
-  adresse           String
-  password          String
-  createdAt         DateTime            @default(now())
-  deletedDate       DateTime?
-  role              Role                @relation(fields: [roleId], references: [id])
-  roleId            Int
-  machines           Machine[]
-  components         Component[]
+  id                  Int                 @id @default(autoincrement())
+  email               String              @unique
+  name                String
+  adresse             String
+  password            String
+  createdAt           DateTime            @default(now())
+  deletedDate         DateTime?
+  role                Role                @relation(fields: [roleId], references: [id])
+  roleId              Int
+  machines            Machine[]
+  components          Component[]
   machines_components Machine_Component[]
-  comments           Comment[]
-  documents          Document[]
-  articles           Article[]
+  comments            Comment[]
+  documents           Document[]
+  articles            Article[]
 }
 
 model ArticleType {
-  id      Int       @id @default(autoincrement())
-  type    String
+  id       Int       @id @default(autoincrement())
+  type     String
   articles Article[]
 }
 
@@ -52,22 +52,22 @@ model Article {
   componentId   Int?
   user          User        @relation(fields: [userId], references: [id])
   userId        Int
-  comments       Comment[]
-  documents      Document[]
+  comments      Comment[]
+  documents     Document[]
 }
 
 model Document {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   format      String
   url         String
-  machine     Machine   @relation(fields: [machineId], references: [id])
+  machine     Machine?   @relation(fields: [machineId], references: [id])
   machineId   Int
-  component   Component @relation(fields: [componentId], references: [id])
+  component   Component? @relation(fields: [componentId], references: [id])
   componentId Int
-  article     Article   @relation(fields: [articleId], references: [id])
+  article     Article?   @relation(fields: [articleId], references: [id])
   articleId   Int
-  user        User      @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
   userId      Int
 }
 
@@ -92,9 +92,9 @@ model Machine {
   discontinuationDate DateTime?
   user                User                @relation(fields: [userId], references: [id])
   userId              Int
-  machines_components   Machine_Component[]
-  articles             Article[]
-  documents            Document[]
+  machines_components Machine_Component[]
+  articles            Article[]
+  documents           Document[]
 }
 
 model Component {
@@ -107,9 +107,9 @@ model Component {
   discontinuationDate DateTime?
   user                User                @relation(fields: [userId], references: [id])
   userId              Int
-  machines_components   Machine_Component[]
-  articles             Article[]
-  documents            Document[]
+  machines_components Machine_Component[]
+  articles            Article[]
+  documents           Document[]
 }
 
 model Machine_Component {
