@@ -1,27 +1,34 @@
-import { IncomingMessage } from 'http';
-import { ServerResponse } from 'http';
+import { UserAuthenticatedRoute } from './../security/security';
+import { Request, Response } from 'express';
 import { NextFunction } from 'express';
+import { login, register } from './manager.user';
 const express = require('express')
 const router = express.Router()
 
+const authRoutes: UserAuthenticatedRoute[] = [
+  {
+    routePathRe: /^\/login$/,
+    routeFunc: (req: Request, res: Response) => login(req, res)
+  },
+  {
+    routePathRe: /^\/register$/,
+    routeFunc: (req: Request, res: Response) => register(req, res)
+  },
+]
+
 // middleware that is specific to this router
-router.use((req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
-  console.log('Time: ', Date.now());
-  next();
-})
+router.use((req: Request, res: Response, next: NextFunction) => {
+  var noAuth = true
 
-// define the home page route
-router.get('/', (req: IncomingMessage, res: ServerResponse) => {
-  res.end('Birds home page');
-})
+  for (const authRoute of authRoutes) {    
+    if (req.method === 'POST' && authRoute.routePathRe.test(req.url ?? '')) {      
+      authRoute.routeFunc(req, res);
 
-router.post('/', (req: IncomingMessage, res: ServerResponse) => {
-  res.end('birds arent real !');
-})
+      noAuth = false;
+    }
+  }
 
-// define the about route
-router.get('/about', (req: IncomingMessage, res: ServerResponse) => {
-  res.end('About birds');
+  if (noAuth) next();
 })
 
 module.exports = router

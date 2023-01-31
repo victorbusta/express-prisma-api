@@ -8,6 +8,8 @@ fixtures.forEach((fixture) => {
   switch (fixture.table) {
 
     case 'role':
+      prisma.role.deleteMany({});
+
       fixture.entries.forEach(async (entrie) => {
         const role = await prisma.role.create({
           data: {
@@ -18,6 +20,8 @@ fixtures.forEach((fixture) => {
     break;
 
     case 'articleType':
+      prisma.articleType.deleteMany({});
+
       fixture.entries.forEach(async (entrie) => {
         const role = await prisma.articleType.create({
           data: {
