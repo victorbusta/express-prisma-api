@@ -1,23 +1,46 @@
 import { PrismaClient, User } from '@prisma/client';
 import { Request, Response } from 'express';
+import { checkRequirement } from './route.utils';
+import { hashPassword } from '../security/manager.password';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 const prisma = new PrismaClient();
 
-export const register = async (req: Request, res: Response) => {  
-  const email = req.body?.email;  
+export const register = async (req: Request, res: Response) => {
+  const requieredFields = ["email", "name", "adresse", "password"];
 
-  if (email === undefined) return res.sendStatus(400);
+  if (!checkRequirement(requieredFields, req, res)) return;
 
-  if (await prisma.user.findUnique({
+  var user = await prisma.user.findUnique({
     where: {
-      email: email
-    }}) !== null
-  ) return res.sendStatus(401);
+      email: req.body.email,
+    }});  
 
-  prisma.user.create({data : user});
+  if (user) {
+    res.statusCode = 401;
+    res.statusMessage = 'user already exists !';
+    res.end();
 
-  console.log(user);
+    return;
+  }
 
+  const role = await prisma.role.findUniqueOrThrow({
+    where : {
+      role: 'ROLE_USER',
+    }});
+
+  user = await prisma.user.create({
+    data: {
+      email: req.body.email,
+      name: req.body.name,
+      adresse: req.body.adresse,
+      password: hashPassword(req.body.password),
+      roleId: role.id,
+    }});
+
+  res.statusCode = 200;
+  res.statusMessage = `successfully added : ${user.name}`;
+  res.end();
 };
 
 export const login = (req: Request, res: Response) => {    

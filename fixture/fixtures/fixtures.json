@@ -46,6 +46,14 @@
             "value" : "Question"
           }
         ]
+      },
+      {
+        "parameters": [
+          {
+            "name" : "type",
+            "value" : "Review"
+          }
+        ]
       }
     ]
   }

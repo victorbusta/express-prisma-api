@@ -1,4 +1,4 @@
-import { UserAuthenticatedRoute } from './../security/security';
+import { UserAuthenticatedRoute } from '../security/security';
 import { Request, Response } from 'express';
 import { NextFunction } from 'express';
 import { login, register } from './manager.user';
@@ -28,7 +28,8 @@ router.use((req: Request, res: Response, next: NextFunction) => {
     }
   }
 
-  if (noAuth) next();
+  // if (noAuth) next();
+  // next();
 })
 
 module.exports = router

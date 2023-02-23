@@ -13,3 +13,5 @@ const getHasher = (u_password: string): typeof hasher => {
 }
 
 export const hashPassword = (password: string): string => getHasher(password).digest;
+
+export const validatePassword = (password: string, u_password: string): boolean => getHasher(password).digest === u_password;
